@@ -6,9 +6,11 @@ using UnityEngine;
 
 namespace IndiePixel
 {
+    [CustomEditor(typeof(IP_Base_Airplane_Input))]
+
     public class IP_BaseAirplaneInput_Editor : Editor
     {
-        [CustomEditor(typeof(IP_Base_Airplane_Input))]
+        
         #region Variables
         private IP_Base_Airplane_Input targetInput;
         #endregion
@@ -38,7 +40,6 @@ namespace IndiePixel
             Repaint();
 
         }
-        #endregion
         // Start is called before the first frame update
         void Start()
         {
@@ -50,5 +51,7 @@ namespace IndiePixel
         {
 
         }
+        #endregion
+
     }
 }
