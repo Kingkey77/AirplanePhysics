@@ -9,13 +9,13 @@ namespace IndiePixel
     public class IP_XBoxAirplaneInput_Editor : Editor
     {
         #region Variables
-        private IP_Base_Airplane_Input targetInput;
+        private IP_XBoxAirplane_Input targetInput;
         #endregion
 
         #region BuiltinMethods
         private void OnEnable()
         {
-            targetInput = (IP_Base_Airplane_Input)target;
+            targetInput = (IP_XBoxAirplane_Input)target;
         }
 
         public override void OnInspectorGUI()
