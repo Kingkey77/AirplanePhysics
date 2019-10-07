@@ -48,19 +48,19 @@ namespace IndiePixel
         // Update is called once per frame
         void Update()
         {
-
+            HandleInput();
         }
         #endregion
 
         #region Custom Methods
-        void HandleInput()
+        protected virtual void HandleInput()
         {
             pitch = Input.GetAxis("Vertical");
             roll = Input.GetAxis("Horizontal");
             yaw = Input.GetAxis("Yaw");
             throttle = Input.GetAxis("Throttle");
 
-            brake = Input.GetKeyDown(brakeKey) ? 1f : 0f;
+            brake = Input.GetKey(brakeKey) ? 1f : 0f;
             flaps = Mathf.Clamp(flaps, 0, maxFlapIncrements);
             if (Input.GetKeyDown(KeyCode.F))
                 flaps += 1;
