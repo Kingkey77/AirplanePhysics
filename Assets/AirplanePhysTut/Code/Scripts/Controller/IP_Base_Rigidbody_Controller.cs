@@ -6,18 +6,18 @@ namespace IndiePixel
 {
     [RequireComponent(typeof(Rigidbody))]
 
-    public class IP_Rigidbody_Controller : MonoBehaviour
+    public class IP_Base_Rigidbody_Controller : MonoBehaviour
     {
         #region variables
-        private Rigidbody rb;
-        private AudioSource aSource;
+        protected Rigidbody rb;
+        protected AudioSource aSource;
 
 
         #endregion
 
         #region Builtin Methods
         // Start is called before the first frame update
-        void Start()
+        public virtual void Start()
         {
             rb = GetComponent<Rigidbody>();
             aSource = GetComponent<AudioSource>();
