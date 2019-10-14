@@ -9,7 +9,7 @@ namespace IndiePixel
     {
         #region Variables
         [Header ("Base Airplane Properties")]
-        public IP_XBoxAirplane_Input input;
+        public IP_Base_Airplane_Input input;
         public Transform centerOfGravity;
 
         [Tooltip("The weight is in LBS")]

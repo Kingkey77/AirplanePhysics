@@ -5,6 +5,7 @@ using UnityEngine;
 namespace IndiePixel
 {
     [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(AudioSource))]
 
     public class IP_Base_Rigidbody_Controller : MonoBehaviour
     {
