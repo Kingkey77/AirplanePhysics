@@ -14,6 +14,13 @@ namespace IndiePixel
 
         [Tooltip("The weight is in LBS")]
         public float airplaneWeight = 800f;
+
+        [Header("Engines")]
+        public List<IP_Airplane_Engines> engines = new List<IP_Airplane_Engines>();
+
+        [Header("Wheels")]
+        public List<Ip_Airplane_Wheels> wheels = new List<Ip_Airplane_Wheels>();
+
         #endregion
 
         #region Contants
@@ -34,6 +41,18 @@ namespace IndiePixel
                     rb.centerOfMass = centerOfGravity.localPosition;
                 }
             }
+
+            if (wheels != null)
+            {
+                if (wheels.Count > 0 )
+                {
+                    foreach (Ip_Airplane_Wheels wheel in wheels)
+                    {
+
+                    }
+                }
+            }
+            
         }
         #endregion
 
@@ -50,7 +69,17 @@ namespace IndiePixel
 
         void HandleEngines()
         {
+            if (engines != null)
+            {
+                if (engines.Count > 0)
+                {
+                    foreach (IP_Airplane_Engines engine in engines)
+                    {
 
+                    }
+
+                }
+            }
         }
 
         void HandleAerodynamics()
