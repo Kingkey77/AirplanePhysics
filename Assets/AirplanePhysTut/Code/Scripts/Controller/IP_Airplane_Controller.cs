@@ -48,7 +48,7 @@ namespace IndiePixel
                 {
                     foreach (Ip_Airplane_Wheels wheel in wheels)
                     {
-
+                        wheel.InitWheel();
                     }
                 }
             }
@@ -59,12 +59,14 @@ namespace IndiePixel
         #region CustomMethods
         protected override void HandlePhysics()
         {
-            HandleEngines();
-            HandleAerodynamics();
-            HandleSteering();
-            HandleBrakes();
-            HandleAltitude();
-
+            if (input)
+            {
+                HandleEngines();
+                HandleAerodynamics();
+                HandleSteering();
+                HandleBrakes();
+                HandleAltitude();
+            }
         }
 
         void HandleEngines()
@@ -75,7 +77,7 @@ namespace IndiePixel
                 {
                     foreach (IP_Airplane_Engines engine in engines)
                     {
-
+                        rb.AddForce(engine.CalculateForce(-input.Throttle));
                     }
 
                 }
