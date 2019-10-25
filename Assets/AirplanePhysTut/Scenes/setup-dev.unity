@@ -140,6 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   brakeKey: 32
   maxFlapIncrements: 2
+  throttleSpeed: 0.1
 --- !u!54 &313884487
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -189,12 +190,27 @@ MonoBehaviour:
   input: {fileID: 313884486}
   centerOfGravity: {fileID: 749299925}
   airplaneWeight: 1400
+  characteristics: {fileID: 313884491}
   engines:
   - {fileID: 1289027699}
   wheels:
   - {fileID: 7380625312605165308}
   - {fileID: 7380625312605165307}
   - {fileID: 7380625312605165306}
+--- !u!114 &313884491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 313884485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2adf92a4ee3bd2a4c9a9007d0307480e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  forwardSpeed: 0
+  mph: 0
 --- !u!1 &362330778
 GameObject:
   m_ObjectHideFlags: 0
@@ -665,6 +681,7 @@ MonoBehaviour:
   input: {fileID: 1892235247}
   centerOfGravity: {fileID: 970100545}
   airplaneWeight: 1200
+  characteristics: {fileID: 0}
   engines: []
   wheels: []
 --- !u!82 &1892235244

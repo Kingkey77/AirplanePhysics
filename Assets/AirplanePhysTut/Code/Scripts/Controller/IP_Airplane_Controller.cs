@@ -4,7 +4,7 @@ using UnityEngine;
 namespace IndiePixel
 {
 
-
+    [RequireComponent(typeof(IP_Airplane_Characteristics))]
     public class IP_Airplane_Controller : IP_Base_Rigidbody_Controller
     {
         #region Variables
@@ -14,6 +14,7 @@ namespace IndiePixel
 
         [Tooltip("The weight is in LBS")]
         public float airplaneWeight = 800f;
+        public IP_Airplane_Characteristics characteristics;
 
         [Header("Engines")]
         public List<IP_Airplane_Engines> engines = new List<IP_Airplane_Engines>();
@@ -39,6 +40,12 @@ namespace IndiePixel
                 if (centerOfGravity)
                 {
                     rb.centerOfMass = centerOfGravity.localPosition;
+                    
+                }
+                characteristics = GetComponent<IP_Airplane_Characteristics>();
+                if (characteristics)
+                {
+                    characteristics.InitCharacteristics(rb);
                 }
             }
 
@@ -52,6 +59,8 @@ namespace IndiePixel
                     }
                 }
             }
+
+            
             
         }
         #endregion
@@ -62,7 +71,7 @@ namespace IndiePixel
             if (input)
             {
                 HandleEngines();
-                HandleAerodynamics();
+                HandleCharacteristics();
                 HandleSteering();
                 HandleBrakes();
                 HandleAltitude();
@@ -77,15 +86,19 @@ namespace IndiePixel
                 {
                     foreach (IP_Airplane_Engines engine in engines)
                     {
-                        rb.AddForce(engine.CalculateForce(-input.Throttle));
+                        rb.AddForce(engine.CalculateForce(input.StickyThrottle));
                     }
 
                 }
             }
         }
 
-        void HandleAerodynamics()
+        void HandleCharacteristics()
         {
+            if (characteristics)
+            {
+                characteristics.UpdateCharacteristics();
+            }
 
         }
 

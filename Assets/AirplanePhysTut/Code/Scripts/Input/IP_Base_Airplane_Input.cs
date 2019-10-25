@@ -12,6 +12,12 @@ namespace IndiePixel
         protected float roll = 0f;
         protected float yaw = 0f;
         protected float throttle = 0f;
+        protected float throttleSpeed = 0.1f;
+        private float stickyThrottle;
+        public float StickyThrottle
+        {
+            get { return stickyThrottle; }
+        }
 
         protected int flaps = 1;
         protected float brake = 0f;
