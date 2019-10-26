@@ -13,6 +13,9 @@ namespace IndiePixel
         private float startDrag;
         private float startAngularDrag;
 
+        [Header("Lift Properties")]
+        public float maxLiftPower = 800f;
+
         #endregion
 
         #region constants
@@ -55,6 +58,10 @@ namespace IndiePixel
 
         void CalculateLift()
         {
+            Vector3 liftDir = transform.up;
+            float liftPower = forwardSpeed * maxLiftPower;
+            Vector3 finalLiftForce = liftDir * liftPower;
+            rb.AddForce(finalLiftForce);
 
         }
 

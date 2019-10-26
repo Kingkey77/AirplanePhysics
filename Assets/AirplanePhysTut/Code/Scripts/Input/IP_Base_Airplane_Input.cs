@@ -13,7 +13,7 @@ namespace IndiePixel
         protected float yaw = 0f;
         protected float throttle = 0f;
         protected float throttleSpeed = 0.1f;
-        private float stickyThrottle;
+        protected float stickyThrottle;
         public float StickyThrottle
         {
             get { return stickyThrottle; }
