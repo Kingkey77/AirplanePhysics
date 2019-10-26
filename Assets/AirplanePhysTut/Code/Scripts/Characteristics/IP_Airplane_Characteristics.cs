@@ -12,9 +12,16 @@ namespace IndiePixel
         private Rigidbody rb;
         private float startDrag;
         private float startAngularDrag;
+        public float maxMPH = 110f;
+        private float maxMPS;
+        private float normalisedMPH;
 
         [Header("Lift Properties")]
         public float maxLiftPower = 800f;
+        public AnimationCurve LiftCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
+
+        [Header("Drag Properties")]
+        public float dragFactor = 0.01f;
 
         #endregion
 
@@ -32,6 +39,9 @@ namespace IndiePixel
             rb = curRB;
             startDrag = rb.drag;
             startAngularDrag = rb.angularDrag;
+
+            //find maxMPS
+            maxMPS = maxMPH / mpsToMph;
 
 
         }
@@ -51,15 +61,19 @@ namespace IndiePixel
         {
             Vector3 localVelocity = transform.InverseTransformDirection(rb.velocity);
             forwardSpeed = localVelocity.z;
+            forwardSpeed = Mathf.Clamp(forwardSpeed, 0, maxMPS);
             mph = forwardSpeed * mpsToMph;
+            mph = Mathf.Clamp(mph, 0, maxMPH);
 
+            normalisedMPH = Mathf.InverseLerp(0f, maxMPH, mph);
+            Debug.Log(normalisedMPH);
             Debug.DrawRay(transform.position, transform.position + localVelocity, Color.green);
         }
 
         void CalculateLift()
         {
             Vector3 liftDir = transform.up;
-            float liftPower = forwardSpeed * maxLiftPower;
+            float liftPower = LiftCurve.Evaluate(normalisedMPH) * maxLiftPower;
             Vector3 finalLiftForce = liftDir * liftPower;
             rb.AddForce(finalLiftForce);
 
@@ -67,7 +81,11 @@ namespace IndiePixel
 
         void CalculateDrag()
         {
+            float speedDrag = forwardSpeed * dragFactor;
+            float finalDrag = startDrag + speedDrag;
+            rb.drag = finalDrag;
 
+            rb.angularDrag = startAngularDrag * forwardSpeed;
         }
         #endregion
 
