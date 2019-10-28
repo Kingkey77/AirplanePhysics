@@ -22,6 +22,9 @@ namespace IndiePixel
         [Header("Wheels")]
         public List<Ip_Airplane_Wheels> wheels = new List<Ip_Airplane_Wheels>();
 
+        
+
+
         #endregion
 
         #region Contants
@@ -45,7 +48,7 @@ namespace IndiePixel
                 characteristics = GetComponent<IP_Airplane_Characteristics>();
                 if (characteristics)
                 {
-                    characteristics.InitCharacteristics(rb);
+                    characteristics.InitCharacteristics(rb, input);
                 }
             }
 

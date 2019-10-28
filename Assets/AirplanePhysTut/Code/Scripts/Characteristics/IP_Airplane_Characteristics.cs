@@ -10,11 +10,16 @@ namespace IndiePixel
         public float forwardSpeed;
         public float mph;
         private Rigidbody rb;
+        private IP_Base_Airplane_Input input;
         private float startDrag;
         private float startAngularDrag;
         public float maxMPH = 110f;
         private float maxMPS;
         private float normalisedMPH;
+        private float angleOfAttack;
+        private float pitchAngle;
+        private float rollAngle;
+        private float yawAngle;
 
         [Header("Lift Properties")]
         public float maxLiftPower = 800f;
@@ -22,6 +27,11 @@ namespace IndiePixel
 
         [Header("Drag Properties")]
         public float dragFactor = 0.01f;
+
+        [Header("Control Properties")]
+        public float pitchSpeed = 1000f;
+        public float rollSpeed = 1000f;
+        public float yawSpeed = 1000f;
 
         #endregion
 
@@ -34,8 +44,9 @@ namespace IndiePixel
         #endregion
 
         #region Custom Methods
-        public void InitCharacteristics(Rigidbody curRB)
+        public void InitCharacteristics(Rigidbody curRB, IP_Base_Airplane_Input currInput)
         {
+            input = currInput;
             rb = curRB;
             startDrag = rb.drag;
             startAngularDrag = rb.angularDrag;
@@ -54,6 +65,11 @@ namespace IndiePixel
                 CalculateForwardSpeed();
                 CalculateLift();
                 CalculateDrag();
+                handlePitch();
+                handleRoll();
+                handleYaw();
+
+                HandleRigidbodyTransform();
             }
         }
 
@@ -72,10 +88,18 @@ namespace IndiePixel
 
         void CalculateLift()
         {
+            //Get Angle of Attack
+            angleOfAttack = Vector3.Dot(rb.velocity, transform.forward);
+            angleOfAttack *= angleOfAttack;
+            Debug.Log(angleOfAttack);
+
+            //calculateLift
             Vector3 liftDir = transform.up;
             float liftPower = LiftCurve.Evaluate(normalisedMPH) * maxLiftPower;
-            Vector3 finalLiftForce = liftDir * liftPower;
+            Vector3 finalLiftForce = liftDir * liftPower * angleOfAttack;
             rb.AddForce(finalLiftForce);
+
+           
 
         }
 
@@ -86,6 +110,56 @@ namespace IndiePixel
             rb.drag = finalDrag;
 
             rb.angularDrag = startAngularDrag * forwardSpeed;
+        }
+
+        void HandleRigidbodyTransform()
+        {
+            if (rb.velocity.magnitude > 1f)
+            {
+                Vector3 updatedVelocity = Vector3.Lerp(rb.velocity, transform.forward * forwardSpeed, forwardSpeed * angleOfAttack * Time.deltaTime);
+                rb.velocity = updatedVelocity;
+
+                Quaternion updatedRotation = Quaternion.Slerp(rb.rotation, Quaternion.LookRotation(rb.velocity.normalized, transform.up), Time.deltaTime);
+                rb.MoveRotation(updatedRotation);
+            }
+        }
+
+        void handlePitch()
+        {
+            Vector3 flatForward = transform.forward;
+            flatForward.y = 0f;
+
+            pitchAngle = Vector3.Angle(transform.forward, flatForward);
+            flatForward = flatForward.normalized;
+
+            Vector3 pitchTorque = input.Pitch * pitchSpeed * transform.right;
+
+            rb.AddTorque(pitchTorque);
+
+        }
+
+        void handleRoll()
+        {
+            Vector3 flatRight = transform.right;
+            flatRight.y = 0f;
+            rollAngle = Vector3.Angle(transform.right, flatRight);
+            flatRight = flatRight.normalized;
+
+            Vector3 rollTorque = input.Roll * rollSpeed * transform.forward;
+            rb.AddTorque(rollTorque);
+
+        }
+
+        void handleYaw()
+        {
+            Vector3 straightYaw = transform.up;
+            straightYaw.y = 0f;
+            rollAngle = Vector3.Angle(transform.up, straightYaw);
+            straightYaw = straightYaw.normalized;
+
+            Vector3 yawTorque = input.Yaw * yawSpeed * transform.up;
+            rb.AddTorque(yawTorque);
+
         }
         #endregion
 
