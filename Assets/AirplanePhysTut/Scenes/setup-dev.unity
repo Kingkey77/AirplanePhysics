@@ -211,6 +211,7 @@ MonoBehaviour:
   forwardSpeed: 0
   mph: 0
   maxMPH: 110
+  rbLerpSpeed: 0.03
   maxLiftPower: 800
   LiftCurve:
     serializedVersion: 2
@@ -245,10 +246,10 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  dragFactor: 0.1
-  pitchSpeed: 5000
-  rollSpeed: 2500
-  yawSpeed: 4000
+  dragFactor: 0.0004
+  pitchSpeed: 1500
+  rollSpeed: 1550
+  yawSpeed: 1500
 --- !u!1 &362330778
 GameObject:
   m_ObjectHideFlags: 0

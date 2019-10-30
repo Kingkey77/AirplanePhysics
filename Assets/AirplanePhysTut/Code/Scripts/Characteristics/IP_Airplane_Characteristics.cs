@@ -20,6 +20,8 @@ namespace IndiePixel
         private float pitchAngle;
         private float rollAngle;
         private float yawAngle;
+        [Header("Characteristic Properties")]
+        public float rbLerpSpeed = 0.01f;
 
         [Header("Lift Properties")]
         public float maxLiftPower = 800f;
@@ -68,6 +70,7 @@ namespace IndiePixel
                 handlePitch();
                 handleRoll();
                 handleYaw();
+                handleBanking();
 
                 HandleRigidbodyTransform();
             }
@@ -116,10 +119,10 @@ namespace IndiePixel
         {
             if (rb.velocity.magnitude > 1f)
             {
-                Vector3 updatedVelocity = Vector3.Lerp(rb.velocity, transform.forward * forwardSpeed, forwardSpeed * angleOfAttack * Time.deltaTime);
+                Vector3 updatedVelocity = Vector3.Lerp(rb.velocity, transform.forward * forwardSpeed, forwardSpeed * angleOfAttack * Time.deltaTime * rbLerpSpeed);
                 rb.velocity = updatedVelocity;
 
-                Quaternion updatedRotation = Quaternion.Slerp(rb.rotation, Quaternion.LookRotation(rb.velocity.normalized, transform.up), Time.deltaTime);
+                Quaternion updatedRotation = Quaternion.Slerp(rb.rotation, Quaternion.LookRotation(rb.velocity.normalized, transform.up), Time.deltaTime *rbLerpSpeed);
                 rb.MoveRotation(updatedRotation);
             }
         }
@@ -142,7 +145,7 @@ namespace IndiePixel
         {
             Vector3 flatRight = transform.right;
             flatRight.y = 0f;
-            rollAngle = Vector3.Angle(transform.right, flatRight);
+            rollAngle = Vector3.SignedAngle(transform.right, flatRight, transform.forward);
             flatRight = flatRight.normalized;
 
             Vector3 rollTorque = input.Roll * rollSpeed * transform.forward;
@@ -159,6 +162,16 @@ namespace IndiePixel
 
             Vector3 yawTorque = input.Yaw * yawSpeed * transform.up;
             rb.AddTorque(yawTorque);
+
+        }
+
+        void handleBanking()
+        {
+            float bankSide = Mathf.InverseLerp(-90f, 90f, rollAngle);
+            float bankAmount = Mathf.Lerp(-1f, 1f, bankSide);
+
+            Vector3 bankTorque = bankAmount * rollSpeed * transform.up;
+            rb.AddTorque(bankTorque);
 
         }
         #endregion
