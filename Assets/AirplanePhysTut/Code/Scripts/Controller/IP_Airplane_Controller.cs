@@ -22,7 +22,8 @@ namespace IndiePixel
         [Header("Wheels")]
         public List<Ip_Airplane_Wheels> wheels = new List<Ip_Airplane_Wheels>();
 
-        
+        [Header("Control Surfaces")]
+        public List<IP_Airplane_ControlSurface> controlSurfaces = new List<IP_Airplane_ControlSurface>();
 
 
         #endregion
@@ -75,6 +76,7 @@ namespace IndiePixel
             {
                 HandleEngines();
                 HandleCharacteristics();
+                HandleControlSurfaces();
                 HandleSteering();
                 HandleBrakes();
                 HandleAltitude();
@@ -103,6 +105,17 @@ namespace IndiePixel
                 characteristics.UpdateCharacteristics();
             }
 
+        }
+
+        void HandleControlSurfaces()
+        {
+            if (controlSurfaces.Count > 0)
+            {
+                foreach (IP_Airplane_ControlSurface controlSurface in controlSurfaces)
+                {
+                    controlSurface.HandleControlSurface(input);
+                }
+            }
         }
 
         void HandleSteering()
