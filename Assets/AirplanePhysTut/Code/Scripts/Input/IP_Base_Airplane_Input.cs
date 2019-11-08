@@ -14,11 +14,6 @@ namespace IndiePixel
         protected float throttle = 0f;
         protected float throttleSpeed = 0.1f;
         protected float stickyThrottle;
-        public float StickyThrottle
-        {
-            get { return stickyThrottle; }
-        }
-
         protected int flaps = 1;
         protected float brake = 0f;
         public KeyCode brakeKey = KeyCode.Space;
@@ -39,6 +34,8 @@ namespace IndiePixel
         { get { return flaps; } }
         public float Brake
         { get { return brake; } }
+        public float StickyThrottle
+        { get { return stickyThrottle; } }
 
 
 
@@ -68,9 +65,9 @@ namespace IndiePixel
 
             brake = Input.GetKey(brakeKey) ? 1f : 0f;
             flaps = Mathf.Clamp(flaps, 0, maxFlapIncrements);
-            if (Input.GetKeyDown(KeyCode.F))
-                flaps += 1;
             if (Input.GetKeyDown(KeyCode.G))
+                flaps += 1;
+            if (Input.GetKeyDown(KeyCode.F))
                 flaps -= 1;
 
             
