@@ -8,10 +8,10 @@ namespace IndiePixel
     public class IP_XBoxAirplane_Input : IP_Base_Airplane_Input
     {
         #region Variables
-        public float throttleSpeed = 0.1f;
-        private float stickyThrottle;
-        public float StickyThrottle
-           {get {return stickyThrottle;} }
+        //public float throttleSpeed = 0.1f;      //rate of change of throttle for stickythrottle
+        //private float stickyThrottle;           
+        //public float StickyThrottle
+           //{get {return stickyThrottle;} }
         
         //IP_Base_Airplane_Input input;
         #endregion
@@ -34,15 +34,6 @@ namespace IndiePixel
 
             flaps = Mathf.Clamp(flaps, 0, maxFlapIncrements);
         }
-
-        void StickyThrottleControl()
-        {
-            stickyThrottle = stickyThrottle + (throttle * throttleSpeed * Time.deltaTime);
-            stickyThrottle = Mathf.Clamp01(stickyThrottle);
-            //Debug.Log(stickyThrottle);
-        }
-
-        
         #endregion
     }
 

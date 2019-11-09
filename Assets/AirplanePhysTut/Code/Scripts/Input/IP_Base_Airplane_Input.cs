@@ -62,6 +62,7 @@ namespace IndiePixel
             roll = Input.GetAxis("Horizontal");
             yaw = Input.GetAxis("Yaw");
             throttle = Input.GetAxis("Throttle");
+            StickyThrottleControl();
 
             brake = Input.GetKey(brakeKey) ? 1f : 0f;
             flaps = Mathf.Clamp(flaps, 0, maxFlapIncrements);
@@ -69,8 +70,15 @@ namespace IndiePixel
                 flaps += 1;
             if (Input.GetKeyDown(KeyCode.F))
                 flaps -= 1;
-
+            flaps = Mathf.Clamp(flaps, 0, maxFlapIncrements);
             
+        }
+
+        protected void StickyThrottleControl()
+        {
+            stickyThrottle = stickyThrottle + (throttle * throttleSpeed * Time.deltaTime);
+            stickyThrottle = Mathf.Clamp01(stickyThrottle);
+            Debug.Log("Sticky throttle in xbox airplane input " + stickyThrottle + "\nThrottte in XBoxAirplane : " + throttle);
         }
         #endregion
     }

@@ -39,7 +39,7 @@ namespace IndiePixel
 
         protected virtual void HandlePhysics()
         {
-
+            Debug.Log("HandlePhysics in BaseRigidBodyController is being called");
         }
         #endregion 
     }

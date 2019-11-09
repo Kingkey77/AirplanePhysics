@@ -63,9 +63,6 @@ namespace IndiePixel
                     }
                 }
             }
-
-            
-            
         }
         #endregion
 
@@ -80,6 +77,7 @@ namespace IndiePixel
                 HandleSteering();
                 HandleBrakes();
                 HandleAltitude();
+                Debug.Log("HandlePhysics in Airplane Controller is being called");
             }
         }
 
@@ -89,6 +87,7 @@ namespace IndiePixel
             {
                 if (engines.Count > 0)
                 {
+                    Debug.Log("In Airplane_Controller.Handle Engines: "+ input.StickyThrottle + " ST\n");
                     foreach (IP_Airplane_Engines engine in engines)
                     {
                         rb.AddForce(engine.CalculateForce(input.StickyThrottle));

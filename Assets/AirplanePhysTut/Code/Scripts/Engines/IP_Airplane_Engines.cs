@@ -50,6 +50,9 @@ namespace IndiePixel
 
             //Create Force!!!
             Vector3 finalForce = transform.forward * finalPower;
+
+            //Debug.Log("\nFinalForce : " + finalForce +"\tCurrentRPM : " + currentRPM);
+
             return finalForce;
 
         }

@@ -85,8 +85,8 @@ namespace IndiePixel
             mph = Mathf.Clamp(mph, 0, maxMPH);
 
             normalisedMPH = Mathf.InverseLerp(0f, maxMPH, mph);
-            Debug.Log(normalisedMPH);
-            Debug.DrawRay(transform.position, transform.position + localVelocity, Color.green);
+            //Debug.Log(normalisedMPH);
+            //Debug.DrawRay(transform.position, transform.position + localVelocity, Color.green);
         }
 
         void CalculateLift()
@@ -94,7 +94,7 @@ namespace IndiePixel
             //Get Angle of Attack
             angleOfAttack = Vector3.Dot(rb.velocity, transform.forward);
             angleOfAttack *= angleOfAttack;
-            Debug.Log(angleOfAttack);
+            //Debug.Log(angleOfAttack);
 
             //calculateLift
             Vector3 liftDir = transform.up;

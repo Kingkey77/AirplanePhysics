@@ -25,14 +25,13 @@ namespace IndiePixel
         {
             base.OnInspectorGUI();
             string debugInfo = "";
-            debugInfo += "Pitch    = " + targetInput.Pitch + "\n";
-            debugInfo += "Roll     = " + targetInput.Roll + "\n";
-            debugInfo += "Yaw      = " + targetInput.Yaw + "\n";
-            debugInfo += "Throttle = " + targetInput.Throttle + "\n";
-            debugInfo += "Brake    = " + targetInput.Brake + "\n";
-            debugInfo += "Flaps    = " + targetInput.Flaps + "\n";
-
-            //custom Editor Code
+            debugInfo += "Pitch             = " + targetInput.Pitch + "\n";
+            debugInfo += "Roll              = " + targetInput.Roll + "\n";
+            debugInfo += "Yaw               = " + targetInput.Yaw + "\n";
+            debugInfo += "Throttle          = " + targetInput.Throttle + "\n";
+            debugInfo += "Brake             = " + targetInput.Brake + "\n";
+            debugInfo += "Flaps             = " + targetInput.Flaps + "\n";
+            debugInfo += "Sticky Throttle   = " + targetInput.StickyThrottle + "\n";           //custom Editor Code
             GUILayout.Space(20);
             EditorGUILayout.TextArea(debugInfo, GUILayout.Height(100));
             GUILayout.Space(20);
