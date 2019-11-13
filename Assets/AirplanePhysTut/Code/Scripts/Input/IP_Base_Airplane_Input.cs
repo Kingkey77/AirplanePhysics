@@ -78,7 +78,7 @@ namespace IndiePixel
         {
             stickyThrottle = stickyThrottle + (throttle * throttleSpeed * Time.deltaTime);
             stickyThrottle = Mathf.Clamp01(stickyThrottle);
-            Debug.Log("Sticky throttle in xbox airplane input " + stickyThrottle + "\nThrottte in XBoxAirplane : " + throttle);
+            //Debug.Log("Sticky throttle in xbox airplane input " + stickyThrottle + "\nThrottte in XBoxAirplane : " + throttle);
         }
         #endregion
     }
